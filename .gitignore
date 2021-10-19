@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+/.svelte
+/.svelte-kit
+/build
+
+wrangler.toml
+
+.env
+
+.vercel

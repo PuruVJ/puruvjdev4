@@ -1,0 +1,26 @@
+{
+  "version": 2,
+
+  "redirects": [
+    {
+      "source": "/view-source",
+      "permanent": false,
+      "destination": "https://github.com/puruvj/puruvjdev3"
+    },
+    {
+      "source": "/twitter",
+      "permanent": false,
+      "destination": "https://twitter.com/puruvjdev"
+    },
+    {
+      "source": "/github",
+      "permanent": false,
+      "destination": "https://github.com/puruvj"
+    },
+    {
+      "source": "/devto",
+      "permanent": false,
+      "destination": "https://dev.to/puruvj"
+    }
+  ]
+}

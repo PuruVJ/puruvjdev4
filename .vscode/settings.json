@@ -1,0 +1,4 @@
+{
+  "svelte.plugin.css.globals": "./src/css/themes.scss",
+  "cSpell.words": ["Layercode"]
+}
