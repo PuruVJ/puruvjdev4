@@ -15,8 +15,8 @@
   </div>
   <div class="social-links">
     <a
-      href="https://twitter.com/puruvjdev"
-      rel="noopener"
+      href="/twitter"
+      rel="noopener external"
       target="_blank"
       id="twitter"
       aria-label="Puru Vijay's Twitter Profile"
@@ -24,8 +24,8 @@
       <Icon {size} path={mdiTwitter} />
     </a>
     <a
-      href="https://github.com/puruvj"
-      rel="noopener"
+      href="/github"
+      rel="noopener external"
       target="_blank"
       id="github"
       aria-label="Puru Vijay's Github Profile"
@@ -33,8 +33,8 @@
       <Icon {size} path={mdiGithub} />
     </a>
     <a
-      href="https://dev.to/puruvj"
-      rel="noopener"
+      href="/devto"
+      rel="noopener external"
       target="_blank"
       id="devto"
       aria-label="Puru Vijay's Dev.to Profile"
@@ -42,8 +42,8 @@
       <Icon {size} path={mdiDevTo} />
     </a>
     <a
-      href="https://hashnode.com/@puruvjdev"
-      rel="noopener"
+      href="/hashnode"
+      rel="noopener external"
       target="_blank"
       id="hashnode"
       aria-label="Puru Vijay's Hashnode Profile"

@@ -5,7 +5,7 @@
     {
       "source": "/view-source",
       "permanent": false,
-      "destination": "https://github.com/puruvj/puruvjdev3"
+      "destination": "https://github.com/puruvj/puruvjdev4"
     },
     {
       "source": "/twitter",
@@ -21,6 +21,11 @@
       "source": "/devto",
       "permanent": false,
       "destination": "https://dev.to/puruvj"
+    },
+    {
+      "source": "/hashnode",
+      "permanent": false,
+      "destination": "https://hashnode.com/@puruvjdev"
     }
   ]
 }

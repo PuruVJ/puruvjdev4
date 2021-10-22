@@ -13,7 +13,7 @@ API.prepare = preflight({
 });
 
 API.add('GET', '/likes/:blogID', async (req, res) => {
-	const { blogID = '' } = req.params ?? {};
+	const { blogID = '' } = req.params;
 
 	if (blogID === '') {
 		return res.send(422, { message: "blogID can't be empty" });
