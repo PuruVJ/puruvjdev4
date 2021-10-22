@@ -59,8 +59,12 @@
         <div class="title">{title}</div>
         <div class="description">{@html description}</div>
         <div class="links">
-          <a href={url}>Demo</a>
-          <a href={repo.url}>Source</a>
+          {#if url}
+            <a href={url}>Demo</a>
+          {/if}
+          {#if repo.url}
+            <a href={repo.url}>Source</a>
+          {/if}
         </div>
       </div>
     </section>

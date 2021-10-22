@@ -6,7 +6,6 @@
     "process-blog": "cd scripts && tsm prebuild.ts",
     "build": "npm run process-blog && svelte-kit build && npm run after-build",
     "after-build": "cd scripts && node postbuild.js & npm run notify:sitemap",
-    "g:works": "cd scripts && node generate-works-list.js",
     "notify:sitemap": "curl http://www.google.com/ping?sitemap=https://puruvj.dev/sitemap.xml",
     "preview": "svelte-kit preview"
   },
