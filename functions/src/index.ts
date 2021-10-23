@@ -19,28 +19,24 @@ API.add('GET', '/likes/:blogID', async (req, res) => {
 		return res.send(422, { message: "blogID can't be empty" });
 	}
 
-	try {
-		const likesStr = await LIKES.get(blogID);
+	const likesStr = await LIKES.get(blogID);
 
-		if (likesStr === null) {
-			// Create kv for this blogID
-			await LIKES.put(blogID, `0`);
+	if (likesStr === null) {
+		// Create kv for this blogID
+		await LIKES.put(blogID, `0`);
 
-			return res.send(200, { likes: 0 });
-		}
-
-		const likes = +likesStr;
-
-		if (isNaN(likes)) {
-			return res.send(418, {
-				message: 'likes are stored in a format which is non-convertible to number',
-			});
-		}
-
-		res.send(200, { likes });
-	} catch (error) {
-		console.log(error);
+		return res.send(200, { likes: 0 });
 	}
+
+	const likes = +likesStr;
+
+	if (isNaN(likes)) {
+		return res.send(418, {
+			message: 'likes are stored in a format which is non-convertible to number',
+		});
+	}
+
+	res.send(200, { likes });
 });
 
 API.add('POST', '/likes/:blogID', async (req, res) => {
