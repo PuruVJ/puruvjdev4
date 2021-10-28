@@ -1,7 +1,7 @@
+declare var LIKES: KVNamespace;
+
 import { Router } from 'worktop';
 import { preflight } from 'worktop/cors';
-
-declare var LIKES: KVNamespace;
 
 const API = new Router();
 
