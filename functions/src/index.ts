@@ -7,7 +7,7 @@ const API = new Router();
 
 // Cors stuff
 API.prepare = preflight({
-	origin: '*', // allow any `Origin` to connect
+	origin: 'https://www.puruvj.dev', // allow any `Origin` to connect
 	headers: ['Cache-Control', 'Content-Type'],
 	methods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'],
 });
