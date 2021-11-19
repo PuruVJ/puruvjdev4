@@ -13,6 +13,7 @@ const config = {
       entries: ['*'],
     },
   },
+  //er
 
   preprocess: preprocess(),
 };
