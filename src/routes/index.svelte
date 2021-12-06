@@ -21,6 +21,15 @@
 <script lang="ts">
   export let blogsList: IBlog[];
 
+  const age = calculateAge();
+
+  function calculateAge() {
+    // birthday is a date
+    var ageDifMs = Date.now() - +new Date('12 Nov, 2001');
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
   onMount(async () => {
     import('lazysizes');
 
@@ -64,7 +73,7 @@
     <div id="written">
       <h1>Hi, I'm <mark>Puru</mark></h1>
       <h2 id="about-me">
-        I am a 19 y/o
+        I am a {age} y/o
         <mark>self-taught fullstack web developer</mark>
         based in India with 6 years of experience. I make
         <mark>blazing fast and performant</mark>
