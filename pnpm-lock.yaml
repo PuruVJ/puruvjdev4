@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@cloudflare/workers-types': ^3.2.0
   '@mdi/js': ^6.4.95
   '@sveltejs/adapter-cloudflare': ^1.0.0-next.2
   '@sveltejs/adapter-static': ^1.0.0-next.21
@@ -43,6 +44,7 @@ dependencies:
   throttle-debounce: 3.0.1
 
 devDependencies:
+  '@cloudflare/workers-types': 3.2.0
   '@sveltejs/adapter-cloudflare': 1.0.0-next.2
   '@sveltejs/adapter-static': 1.0.0-next.21
   '@sveltejs/kit': 1.0.0-next.191_sass@1.43.4+svelte@3.44.0
@@ -73,6 +75,10 @@ devDependencies:
   yaml: 1.10.2
 
 packages:
+
+  /@cloudflare/workers-types/3.2.0:
+    resolution: {integrity: sha512-y0+f7QeB5/fMMdU0wSwvBB18yE9kAD2s7Wben8a4uI4f/EJyE+eJrai5QO52Pq8EmWP0vRpKqZh0qU857WhY2A==}
+    dev: true
 
   /@mdi/js/6.4.95:
     resolution: {integrity: sha512-b1/P//1D2KOzta8YRGyoSLGsAlWyUHfxzVBhV4e/ppnjM4DfBgay/vWz7Eg5Ee80JZ4zsQz8h54X+KOahtBk5Q==}
