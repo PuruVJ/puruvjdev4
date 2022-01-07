@@ -19,7 +19,7 @@
   <link rel="icon" href="/icons/favicon-{dev ? 'dev' : $theme}.{dev ? 'svg' : 'png'}" />
 </svelte:head>
 
-<Nav page={$page.path} />
+<Nav page={$page.url.pathname} />
 
 <main style="margin-top: 3.75rem">
   <slot />

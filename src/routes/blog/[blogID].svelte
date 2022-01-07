@@ -10,12 +10,7 @@
   import { throttle } from 'throttle-debounce';
   import '../../css/blog-page-style.scss';
 
-  export const load: Load = async ({
-    page: {
-      params: { blogID },
-    },
-    fetch,
-  }) => {
+  export const load: Load = async ({ params: { blogID }, fetch }) => {
     try {
       const res = await fetch(`/data/blog/${blogID}.json`);
       const data: IBlog = await res.json();
@@ -74,6 +69,7 @@
 <main in:fadeIn out:fadeOut>
   <Toc {toc} />
   <LikeButton blogID={id} />
+
   <div class="progress" aria-roledescription="progress">
     <div class="indicator" style="transform: scaleX({$readingProgress})" />
   </div>
