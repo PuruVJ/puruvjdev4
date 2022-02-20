@@ -21,9 +21,9 @@
     }
 
     // Fetch and conquer
-    const req = await fetch(`${API.LIKES}/${blogID}`);
+    const req = await fetch(`./${blogID}.json`);
 
-    const data = await req.json();
+    const data = (await req.json()) as any;
 
     $emoStates[blogID] = data;
   }
@@ -37,15 +37,9 @@
 
     try {
       // Make the request
-      const req = await fetch(`${API.LIKES}/${blogID}`, {
+      const req = await fetch(`./${blogID}.json`, {
         body: JSON.stringify({ operation }),
         method: 'POST',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': 'true',
-        },
-        mode: 'no-cors',
       });
 
       const res = await req.text();

@@ -1,12 +1,11 @@
 // @ts-check
 import preprocess from 'svelte-preprocess';
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-cloudflare';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    target: '#svelte',
-    adapter: adapter({ fallback: '/404.html' }),
+    adapter: adapter(),
     prerender: {
       crawl: true,
       enabled: true,
