@@ -44,7 +44,7 @@
 
     import('lazysizes');
 
-    throttledHandler = throttle(50, false, handleProgressBar);
+    throttledHandler = throttle(50, handleProgressBar, { noLeading: true });
     document.addEventListener('scroll', throttledHandler);
     return () => document.removeEventListener('scroll', throttledHandler);
   });
