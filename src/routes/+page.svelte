@@ -1,25 +1,14 @@
-<script context="module" lang="ts">
+<script lang="ts">
   import BlogList from '$lib/components/BlogList.svelte';
   import ContactMeLink from '$lib/components/ContactMeLink.svelte';
   import ContactMeSvg from '$lib/components/ContactMeSVG.svelte';
   import WavyHr from '$lib/components/WavyHR.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
-  import type { IBlog } from '$lib/interfaces/blog.interface';
-  import type { Load } from '@sveltejs/kit';
   import { onMount } from 'svelte';
+  import type { PageData } from './$types';
 
-  export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/data/homepage-blogs-list.json');
-    const data = await res.json();
-
-    return { props: { blogsList: data } };
-  };
-
-  export const prerender = true;
-</script>
-
-<script lang="ts">
-  export let blogsList: IBlog[];
+  export let data: PageData;
+  $: ({ blogsList } = data);
 
   const age = calculateAge();
 

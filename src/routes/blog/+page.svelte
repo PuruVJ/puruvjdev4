@@ -1,28 +1,16 @@
-<script context="module" lang="ts">
-  import BlogList from '$lib/components/BlogList.svelte';
-  import { fadeIn, fadeOut } from '$lib/fade';
-  import type { IBlog } from '$lib/interfaces/blog.interface';
-  import type { Load } from '@sveltejs/kit';
-  import { onMount } from 'svelte';
-
-  export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/data/blogs-list.json');
-    const data = await res.json();
-
-    return { props: { blogsList: data } };
-  };
-
-  export const prerender = true;
-</script>
-
 <script lang="ts">
   import { browser } from '$app/env';
+  import BlogList from '$lib/components/BlogList.svelte';
+  import { fadeIn, fadeOut } from '$lib/fade';
+  import { onMount } from 'svelte';
+  import type { PageData } from './$types';
 
   onMount(() => {
     document.body.classList.add('background');
   });
 
-  export let blogsList: IBlog[];
+  export let data: PageData;
+  $: ({ blogsList } = data);
 </script>
 
 <svelte:head>

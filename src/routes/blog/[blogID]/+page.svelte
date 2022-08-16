@@ -1,36 +1,20 @@
-<script context="module" lang="ts">
+<script lang="ts">
   import LikeButton from '$lib/components/LikeButton.svelte';
   import Toc from '$lib/components/TOC.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
   import { formatDate } from '$lib/helpers/format-date';
-  import type { IBlog } from '$lib/interfaces/blog.interface';
   import { readingProgress } from '$lib/stores/progress.store';
-  import type { Load } from '@sveltejs/kit';
   import { onDestroy, onMount } from 'svelte';
   import { throttle } from 'throttle-debounce';
-  import '../../css/blog-page-style.scss';
+  import '../../../css/blog-page-style.scss';
+  import type { PageData } from './$types';
 
-  export const load: Load = async ({ params: { blogID }, fetch }) => {
-    try {
-      const res = await fetch(`/data/blog/${blogID}.json`);
-      const data: IBlog = await res.json();
+  export let data: PageData;
+  $: ({ blogData } = data);
 
-      if (data.redirectTo) return { redirect: data.redirectTo, status: 302 };
+  $: ({ title, body, date, description, cover_image, id, reading_time, series, toc } = blogData);
 
-      return { props: { blogData: data } };
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  export const prerender = true;
-</script>
-
-<script lang="ts">
-  export let blogData: IBlog;
-  const { title, body, date, description, cover_image, id, reading_time, series, toc } = blogData;
-
-  const browserTitle = title.replace(/<img.*?alt="(.*?)"[^\>]+>/g, '$1');
+  $: browserTitle = title.replace(/<img.*?alt="(.*?)"[^\>]+>/g, '$1');
 
   function handleProgressBar() {
     const { scrollHeight, clientHeight, scrollTop } = document.documentElement;

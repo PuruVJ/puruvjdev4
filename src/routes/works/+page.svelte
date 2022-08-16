@@ -1,25 +1,10 @@
-<script context="module" lang="ts">
-  import { fadeIn, fadeOut } from '$lib/fade';
-  import type { IWork } from '$lib/interfaces/work.interface';
-  import type { Load } from '@sveltejs/kit';
-  import { onMount } from 'svelte';
-
-  export const load: Load = async ({ fetch }) => {
-    try {
-      const res = await fetch(`/data/works.json`);
-      const data = await res.json();
-
-      return { props: { works: data } };
-    } catch (e) {
-      return;
-    }
-  };
-
-  export const prerender = true;
-</script>
-
 <script lang="ts">
-  export let works: IWork[];
+  import { fadeIn, fadeOut } from '$lib/fade';
+  import { onMount } from 'svelte';
+  import type { PageData } from './$types';
+
+  export let data: PageData;
+  $: ({ works } = data);
 
   onMount(() => {
     document.body.classList.add('background');
