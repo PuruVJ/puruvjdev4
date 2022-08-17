@@ -17,8 +17,8 @@
     "throttle-debounce": "^5.0.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "1.0.0-next.39",
-    "@sveltejs/kit": "1.0.0-next.409",
+    "@sveltejs/adapter-static": "^1.0.0-next.39",
+    "@sveltejs/kit": "^1.0.0-next.415",
     "@types/html-to-text": "^8.1.0",
     "@types/jsdom": "^20.0.0",
     "@types/markdown-it": "^12.2.3",
