@@ -125,4 +125,4 @@ for (let id of IDs) {
 }
 ```
 
-I prefer the 2nd approach. If you wanna add an extra step, you simply add an extra line, whereas the 2st will require a whole extra `Promise.all(array map)`, which ultimately is just code redundancy.
+I prefer the 2nd approach. If you wanna add an extra step, you simply add an extra line, whereas the 1st will require a whole extra `Promise.all(array map)`, which ultimately is just code redundancy.
