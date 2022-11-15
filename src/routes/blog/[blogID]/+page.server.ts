@@ -1,8 +1,15 @@
 import type { IBlog } from '$lib/interfaces/blog.interface';
-import type { PageLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ params: { blogID }, fetch }) => {
+import type { PageServerLoad, Actions } from './$types';
+
+export const actions: Actions = {
+  default: async (event) => {},
+};
+
+export const prerender = false;
+
+export const load: PageServerLoad = async ({ params: { blogID }, fetch }) => {
   const res = await fetch(`/data/blog/${blogID}.json`);
   const data: IBlog = await res.json();
 

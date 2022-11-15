@@ -1,17 +1,17 @@
-import { sineIn } from "svelte/easing";
+import { sineIn } from 'svelte/easing';
 
 let duration = 150;
 let delay = duration;
 
 let delayZero = 0;
 
-export const fadeIn = (_, _1) => ({
+export const fadeIn = (_) => ({
   duration: duration + 10,
   delay,
   easing: sineIn,
   css: (t) => `opacity: ${t}`,
 });
-export const fadeOut = (_, _1) => ({
+export const fadeOut = (_) => ({
   duration,
   delayZero,
   easing: sineIn,
