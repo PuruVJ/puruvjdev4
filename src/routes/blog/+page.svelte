@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import BlogList from '$lib/components/BlogList.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
   import { onMount } from 'svelte';
