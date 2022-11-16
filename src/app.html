@@ -10,13 +10,6 @@
     <script src="https://polyfill.io/v3/polyfill.min.js" defer></script>
     <link rel="manifest" href="/manifest.json" />
 
-    %sveltekit.head%
-
-    <meta name="twitter:card" content="summary_large_image" />
-  </head>
-  <body>
-    <div id="svelte">%sveltekit.body%</div>
-
     <script>
       // Get localstorage value
       const localTheme = localStorage.getItem('theme');
@@ -28,5 +21,12 @@
 
       localStorage.setItem('theme', theme);
     </script>
+
+    %sveltekit.head%
+
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="svelte">%sveltekit.body%</div>
   </body>
 </html>

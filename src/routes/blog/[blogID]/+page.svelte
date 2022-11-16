@@ -1,23 +1,28 @@
 <script lang="ts">
+  import { mdiHeart, mdiHeartOutline } from '@mdi/js';
+  import { onDestroy, onMount } from 'svelte';
+  import { throttle } from 'throttle-debounce';
+
   import { enhance } from '$app/forms';
+  import type { ActionData, PageData } from './$types';
+
   import Icon from '$lib/components/Icon.svelte';
   import Toc from '$lib/components/TOC.svelte';
+
   import { fadeIn, fadeOut } from '$lib/fade';
   import { formatDate } from '$lib/helpers/format-date';
   import { readingProgress } from '$lib/stores/progress.store';
   import { theme } from '$lib/stores/theme.store';
-  import { mdiHeart, mdiHeartOutline } from '@mdi/js';
-  import { onDestroy, onMount } from 'svelte';
-  import { throttle } from 'throttle-debounce';
+
   import '../../../css/blog-page-style.scss';
-  import type { ActionData, PageData } from './$types';
 
   export let data: PageData;
   export let form: ActionData;
 
   $: ({ blogData, likes } = data);
+  $: console.log(data);
   $: ({ title, body, date, description, cover_image, id, reading_time, series, toc } = blogData);
-  $: browserTitle = title.replace(/<img.*?alt="(.*?)"[^\>]+>/g, '$1');
+  $: browserTitle = title?.replace(/<img.*?alt="(.*?)"[^\>]+>/g, '$1');
 
   function handleProgressBar() {
     const { scrollHeight, clientHeight, scrollTop } = document.documentElement;
@@ -62,7 +67,7 @@
   <form
     class="like-button-form"
     use:enhance={({ data }) => {
-      return ({ update, form }) => {
+      return ({ update }) => {
         update();
         marked = !marked;
 
