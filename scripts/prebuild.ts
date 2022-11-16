@@ -3,7 +3,6 @@ import { blogMDHtml } from './blog-md-html';
 import { generateBlogsList } from './blogs-list';
 import { generateSitemap } from './generate-sitemap';
 import { generateWorksList } from './generate-works-list';
-import { getPopularBlogPosts } from './get-popular-blogs';
 import { rss } from './rss';
 
 async function main() {
@@ -11,7 +10,6 @@ async function main() {
 
   Promise.all([
     generateWorksList(),
-    getPopularBlogPosts(data),
     generateBlogsList(data),
     blogMDHtml(data),
     rss(data),
