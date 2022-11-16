@@ -1,7 +1,7 @@
 import type { IBlog } from '$lib/interfaces/blog.interface';
 import type { PageServerLoad } from './$types';
 
-export const prerender = false;
+// export const prerender = false;
 
 const MAX_COUNT = 6;
 
