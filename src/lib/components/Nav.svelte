@@ -18,11 +18,11 @@
 >
   <ul>
     <li>
-      <a sveltekit:prefetch aria-current={page === '/' ? 'page' : 'false'} href="/"> HOME </a>
+      <a data-sveltekit-prefetch aria-current={page === '/' ? 'page' : 'false'} href="/"> HOME </a>
     </li>
     <li>
       <a
-        sveltekit:prefetch
+        data-sveltekit-prefetch
         aria-current={page?.startsWith('/blog') ? 'page' : 'false'}
         href="/blog"
       >
@@ -30,7 +30,7 @@
       </a>
     </li>
     <li>
-      <a sveltekit:prefetch aria-current={page === '/works' ? 'page' : 'false'} href="/works">
+      <a data-sveltekit-prefetch aria-current={page === '/works' ? 'page' : 'false'} href="/works">
         WORKS
       </a>
     </li>

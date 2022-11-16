@@ -13,7 +13,7 @@
     class="blog-link"
     href={redirectTo ?? `/blog/${id}`}
     aria-label={title}
-    {...redirectTo ? { target: '_blank' } : { 'sveltekit:prefetch': true }}
+    {...redirectTo ? { target: '_blank' } : { 'data-sveltekit-prefetch': '' }}
   >
     <span class="series">
       {#if series}
