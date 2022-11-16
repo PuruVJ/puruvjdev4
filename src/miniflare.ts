@@ -7,11 +7,13 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
   if (_platform) return _platform;
   const mf = new Miniflare({
     log: new Log(LogLevel.INFO),
-    kvPersist: './kv-data', // Use filebase or in memory store
+    kvPersist: '.kv-data', // Use filebase or in memory store
     kvNamespaces: ['LIKES'], //Declare array with NameSpaces
     globalAsyncIO: true,
     globalTimers: true,
     globalRandom: true,
+
+    wranglerConfigPath: new URL('../wrangler.toml', import.meta.url).pathname,
 
     script: `
 		addEventListener("fetch", (event) => {

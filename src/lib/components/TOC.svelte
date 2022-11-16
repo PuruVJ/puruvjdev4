@@ -5,6 +5,7 @@
   export let toc: TOC[];
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div class="container" tabindex="0">
   <ul>
     {#each toc as { id, title, length }}
