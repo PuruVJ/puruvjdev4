@@ -8,4 +8,4 @@ export const load: Load = async ({ fetch }) => {
   return { blogsList: data };
 };
 
-export const prerender = true;
+export const prerender = 'auto';

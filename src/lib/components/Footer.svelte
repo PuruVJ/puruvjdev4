@@ -15,7 +15,8 @@
   <div class="social-links">
     <a
       href="https://twitter.com/puruvjdev"
-      rel="noopener external"
+      rel="noreferrer"
+      data-sveltekit-reload
       target="_blank"
       id="twitter"
       aria-label="Puru Vijay's Twitter Profile"
@@ -24,7 +25,8 @@
     </a>
     <a
       href="https://github.com/puruvj"
-      rel="noopener external"
+      rel="noreferrer"
+      data-sveltekit-reload
       target="_blank"
       id="github"
       aria-label="Puru Vijay's Github Profile"
@@ -33,7 +35,8 @@
     </a>
     <a
       href="https://dev.to/puruvj"
-      rel="noopener external"
+      rel="noreferrer"
+      data-sveltekit-reload
       target="_blank"
       id="devto"
       aria-label="Puru Vijay's Dev.to Profile"
