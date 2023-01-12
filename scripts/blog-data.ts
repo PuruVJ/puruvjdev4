@@ -1,6 +1,6 @@
 import fm, { FrontMatterResult } from 'front-matter';
 import { promises as fsp } from 'fs';
-import twemoji from 'twemoji';
+import { getEmoji } from './common/emoji';
 import { BLOG_POSTS_MD_PATH, RELATIVE_ASSETS_PATH } from './constants';
 import { BlogData, Series } from './types';
 
@@ -38,10 +38,7 @@ export async function getBlogData() {
     // Reset the cover image if required
     attrs.cover_image = attrs.cover_image || `${RELATIVE_ASSETS_PATH}/media/blog-social-intro.png`;
 
-    attrs.title = twemoji.parse(attrs.title, {
-      ext: '.svg',
-      folder: 'svg',
-    });
+    attrs.title = getEmoji(attrs.title);
 
     const series = attrs.series;
 

@@ -1,13 +1,10 @@
-import twemoji from 'twemoji';
+import { getEmoji } from 'scripts/common/emoji';
 
 /**
  * Converts regular emojis to twitter emojis
  */
 export function twemojiPlugin(document: Document) {
-  document.documentElement.innerHTML = twemoji.parse(document.documentElement.innerHTML, {
-    ext: '.svg',
-    folder: 'svg',
-  });
+  document.documentElement.innerHTML = getEmoji(document.documentElement.innerHTML);
 
   return document;
 }

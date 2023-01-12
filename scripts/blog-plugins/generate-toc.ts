@@ -1,5 +1,5 @@
 import { htmlToText } from 'html-to-text';
-import twemoji from 'twemoji';
+import { getEmoji } from 'scripts/common/emoji';
 
 type TOC = {
   indent: number;
@@ -23,10 +23,7 @@ export function generateTOCPlugin(document: Document) {
     TOCdata.push({
       indent,
       id,
-      title: twemoji.parse(title, {
-        ext: '.svg',
-        folder: 'svg',
-      }),
+      title: getEmoji(title),
       length,
     });
   }
