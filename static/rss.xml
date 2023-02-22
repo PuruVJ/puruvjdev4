@@ -11,6 +11,14 @@
     </image>
     
           <item>
+            <title>Idea💡: LighteningCSS for Rollup, Vite, ESBuild, but with a twist... // Puru Vijay</title>
+            <link>https://puruvj.dev/blog/proposal-vite-style-lighteningcss-plugin</link>
+            <description>Incorporate lighteningCSS into tools like Rollup, Vite, ESBuild.</description>
+            <pubDate>Tue, 28 Feb 2023 18:30:00 GMT</pubDate>
+          </item>
+        
+
+          <item>
             <title>macOS Web: Why I moved from React to Svelte // Puru Vijay</title>
             <link>https://puruvj.dev/blog/macos-react-to-svelte</link>
             <description>I recently moved macOS web from Preact to Svelte. Here's a firsthand account of my experience.</description>
