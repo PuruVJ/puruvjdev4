@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ params: { blogID }, fetch, platform
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
 
-  const likesStr = await platform.env.LIKES?.get(blogID);
+  const likesStr = (await platform.env.LIKES?.get(blogID)) ?? 0;
 
   if (likesStr === null) {
     // Create kv for this blogID
