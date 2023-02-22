@@ -13,6 +13,8 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
     globalTimers: true,
     globalRandom: true,
 
+    cfFetch: false,
+
     wranglerConfigPath: new URL('../wrangler.toml', import.meta.url).pathname,
 
     script: `

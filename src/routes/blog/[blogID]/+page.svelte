@@ -61,6 +61,7 @@
 
   <form
     class="like-button-form"
+    method="POST"
     use:enhance={({ data }) => {
       return ({ update, form }) => {
         update();
