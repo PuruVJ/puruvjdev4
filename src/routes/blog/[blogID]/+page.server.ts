@@ -1,11 +1,9 @@
-import { invalid, redirect } from '@sveltejs/kit';
-
+import { fail, redirect } from '@sveltejs/kit';
 import type { IBlog } from '$lib/interfaces/blog.interface';
-import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
 
-export const actions: Actions = {
+export const actions = {
   default: async ({ request, platform }) => {
     const formData = await request.formData();
     const blogID = formData.get('blogID') as string;
@@ -14,7 +12,7 @@ export const actions: Actions = {
     const likesStr = await platform.env.LIKES.get(blogID);
 
     if (likesStr === null) {
-      return invalid(404, { success: false, message: "blogID doesn't exists" });
+      return fail(404, { success: false, message: "blogID doesn't exists" });
     }
 
     const incrementVal = operation === 'inc' ? +1 : -1;
@@ -25,7 +23,7 @@ export const actions: Actions = {
   },
 };
 
-export const load: PageServerLoad = async ({ params: { blogID }, fetch, platform }) => {
+export const load = async ({ params: { blogID }, fetch, platform }) => {
   const res = await fetch(`/data/blog/${blogID}.json`);
   const data: IBlog = await res.json();
 

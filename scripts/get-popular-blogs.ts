@@ -1,5 +1,4 @@
 import { promises as fsp } from 'fs';
-import fetch from 'node-fetch';
 import { ASSETS_ROOT_PATH } from './constants';
 import { BlogData } from './types';
 
