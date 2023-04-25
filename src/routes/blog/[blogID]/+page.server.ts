@@ -1,4 +1,4 @@
-import { invalid, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 import type { IBlog } from '$lib/interfaces/blog.interface';
 import type { Actions, PageServerLoad } from './$types';
@@ -14,7 +14,7 @@ export const actions: Actions = {
     const likesStr = await platform.env.LIKES.get(blogID);
 
     if (likesStr === null) {
-      return invalid(404, { success: false, message: "blogID doesn't exists" });
+      return fail(404, { success: false, message: "blogID doesn't exists" });
     }
 
     const incrementVal = operation === 'inc' ? +1 : -1;
@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ params: { blogID }, fetch, platform
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
 
-  const likesStr = await platform.env.LIKES.get(blogID);
+  const likesStr = (await platform.env.LIKES?.get(blogID)) ?? 0;
 
   if (likesStr === null) {
     // Create kv for this blogID
