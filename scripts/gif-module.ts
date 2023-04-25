@@ -1,5 +1,4 @@
 import { promises as fsp } from 'fs';
-import fetch from 'node-fetch';
 import { cloudinary } from './cloudinary.js';
 import { ASSETS_ROOT_PATH } from './constants';
 
@@ -26,9 +25,11 @@ export async function optimizeGif(fileName: string) {
 
   console.log(res.url);
 
-  const buffer = await fetch(res.url).then((res) => res.buffer());
+  const buffer = await fetch(res.url)
+    .then((res) => res.blob())
+    .then((blob) => blob.arrayBuffer());
 
-  await fsp.writeFile(folderPath + '/vidgif.mp4', buffer);
+  await fsp.writeFile(folderPath + '/vidgif.mp4', Buffer.from(buffer));
 
   console.log(`Starting gif conversion: ${fileName}`);
 

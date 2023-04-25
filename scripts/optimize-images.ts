@@ -1,9 +1,8 @@
 import { promises as fsp } from 'fs';
-import fetch from 'node-fetch';
 import { cloudinary } from './cloudinary.js';
 import { ASSETS_ROOT_PATH, RELATIVE_ASSETS_PATH } from './constants';
 import { optimizeGif } from './gif-module';
-import { imageMarkup, gifMarkup } from './markup';
+import { gifMarkup, imageMarkup } from './markup';
 import { ExportedImagesMetaData } from './types';
 
 /**
@@ -101,7 +100,10 @@ export async function optimizeBlogImages(src: string, altText: string, returnMar
       overwrite: true,
     });
 
-  const fetchImg = (path: string) => fetch(path).then((res) => res.buffer());
+  const fetchImg = (path: string) =>
+    fetch(path)
+      .then((res) => res.blob())
+      .then(async (blob) => Buffer.from(await blob.arrayBuffer()));
 
   const [bigOriginal, smallOriginal] = await Promise.all([upload(1200), upload(600)]);
   const [bigOriginalBuffer, smallOriginalBuffer] = await Promise.all([
