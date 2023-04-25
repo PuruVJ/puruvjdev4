@@ -1,27 +1,27 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { IBlog } from '$lib/interfaces/blog.interface';
 
-export const prerender = false;
+export const prerender = true;
 
-export const actions = {
-  default: async ({ request, platform }) => {
-    const formData = await request.formData();
-    const blogID = formData.get('blogID') as string;
-    const operation = formData.get('operation') as 'inc' | 'dec';
+// export const actions = {
+//   default: async ({ request, platform }) => {
+//     const formData = await request.formData();
+//     const blogID = formData.get('blogID') as string;
+//     const operation = formData.get('operation') as 'inc' | 'dec';
 
-    const likesStr = await platform.env.LIKES.get(blogID);
+//     const likesStr = await platform.env.LIKES.get(blogID);
 
-    if (likesStr === null) {
-      return fail(404, { success: false, message: "blogID doesn't exists" });
-    }
+//     if (likesStr === null) {
+//       return fail(404, { success: false, message: "blogID doesn't exists" });
+//     }
 
-    const incrementVal = operation === 'inc' ? +1 : -1;
-    const newLikes = +likesStr + incrementVal;
-    await platform.env.LIKES.put(blogID, `${newLikes}`);
+//     const incrementVal = operation === 'inc' ? +1 : -1;
+//     const newLikes = +likesStr + incrementVal;
+//     await platform.env.LIKES.put(blogID, `${newLikes}`);
 
-    return { success: true, likes: newLikes };
-  },
-};
+//     return { success: true, likes: newLikes };
+//   },
+// };
 
 export const load = async ({ params: { blogID }, fetch, platform }) => {
   const res = await fetch(`/data/blog/${blogID}.json`);
@@ -29,14 +29,14 @@ export const load = async ({ params: { blogID }, fetch, platform }) => {
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
 
-  const likesStr = await platform.env.LIKES.get(blogID);
+  // const likesStr = await platform.env.LIKES.get(blogID);
 
-  if (likesStr === null) {
-    // Create kv for this blogID
-    await platform.env.LIKES.put(blogID, `0`);
-  }
+  // if (likesStr === null) {
+  //   // Create kv for this blogID
+  //   await platform.env.LIKES.put(blogID, `0`);
+  // }
 
-  const likes = +likesStr;
+  // const likes = +likesStr;
 
-  return { blogData: data, likes };
+  return { blogData: data };
 };
