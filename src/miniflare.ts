@@ -9,13 +9,8 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
     log: new Log(LogLevel.INFO),
     kvPersist: '.kv-data', // Use filebase or in memory store
     kvNamespaces: ['LIKES'], //Declare array with NameSpaces
-    globalAsyncIO: true,
-    globalTimers: true,
-    globalRandom: true,
 
-    cfFetch: false,
-
-    wranglerConfigPath: new URL('../wrangler.toml', import.meta.url).pathname,
+    // wranglerConfigPath: new URL('../wrangler.toml', import.meta.url).pathname,
 
     script: `
 		addEventListener("fetch", (event) => {
@@ -30,10 +25,10 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
 
   // await mf.dispatchFetch('https://host.tld');
 
-  const env = await mf.getBindings();
+  // const env = await mf.getBindings();
 
-  // @ts-ignore
-  const platform: App.Platform = { env };
+  // // @ts-ignore
+  // const platform: App.Platform = { env };
 
-  return platform;
+  // return platform;
 };
