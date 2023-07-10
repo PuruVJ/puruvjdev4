@@ -9,12 +9,12 @@
     type: github
   image: macos.png
 
-- title: svelte-drag
-  url: https://www.npmjs.com/package/svelte-drag
-  stack: svelte, npm, javascript, typescript
+- title: neodrag
+  url: https://neodrag.dev
+  stack: svelte, react, solid, vue, astro, npm, javascript, typescript
   description: >
-    A Svelte library implemented to make implementing dragging functionality as simple as if it isn't there at all 😉 <br />
-    Only 2KB in size, with 0 dependencies.
+    A set of framework-specific libraries implemented to make implementing dragging functionality as simple as if it isn't there at all 😉 <br />
+    Only 1.7KB in size, with 0 dependencies.
 
   repo:
     url: https://github.com/puruvj/svelte-drag
@@ -30,7 +30,7 @@
     any of the blog posts. Designed entirely by hand, no templates used, just the lil designer in my brain 😉
 
   repo:
-    url: https://github.com/puruvj/puruvjdev3
+    url: https://github.com/puruvj/puruvjdev4
     type: github
   image: puruvjdev2.png
 
