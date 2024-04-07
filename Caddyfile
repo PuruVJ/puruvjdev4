@@ -1,0 +1,36 @@
+vps.puruvj.dev {
+	root * /path/to/your/site
+
+	# Attempt to serve precompressed files from /prerendered folder
+	@prerendered {
+		path /prerendered*
+		file {
+			try_files {path} {path}/ /index.html
+			split_path .gz .br
+		}
+	}
+	handle @prerendered {
+		rewrite {http.matchers.file.relative}
+		file_server {
+			precompressed br gzip
+		}
+	}
+
+	# If not found, attempt to serve precompressed files from /client folder
+	@client {
+		path /client*
+		file {
+			try_files {path} {path}/ /index.html
+			split_path .gz .br
+		}
+	}
+	handle @client {
+		rewrite {http.matchers.file.relative}
+		file_server {
+			precompressed br gzip
+		}
+	}
+
+	# Proxy any other requests to the node server running on port 1211
+	reverse_proxy /* localhost:1211
+}
