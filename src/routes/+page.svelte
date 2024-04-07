@@ -5,9 +5,8 @@
   import WavyHr from '$lib/components/WavyHR.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
   import { onMount } from 'svelte';
-  import type { PageData } from './$types';
 
-  export let data: PageData;
+  export let data;
   $: ({ blogsList } = data);
 
   const age = calculateAge();

@@ -3,13 +3,12 @@
   import BlogList from '$lib/components/BlogList.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
   import { onMount } from 'svelte';
-  import type { PageData } from './$types';
 
   onMount(() => {
     document.body.classList.add('background');
   });
 
-  export let data: PageData;
+  export let data;
   $: ({ blogsList } = data);
 </script>
 

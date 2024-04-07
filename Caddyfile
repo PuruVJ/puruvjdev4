@@ -1,39 +1,33 @@
-vps.puruvj.dev {
+:3134 {
 	root * /path/to/your/site
 
-  # Set a custom header with an emoji value
-  header * X-Custom-Emoji "🚀"
+    # Set a custom header with an emoji value for all responses
+    header * X-Custom-Emoji "🚀"
 
-	# Attempt to serve precompressed files from /prerendered folder
-	@prerendered {
-		path /prerendered*
-		file {
-			try_files {path} {path}/ /index.html
-			split_path .gz .br
-		}
-	}
-	handle @prerendered {
-		rewrite {http.matchers.file.relative}
-		file_server {
-			precompressed br gzip
-		}
-	}
+    # Serve files from the /prerendered folder if they exist
+    @prerendered {
+        path /prerendered*
+        file {
+            try_files {path} {path}/ /index.html
+        }
+    }
+    handle @prerendered {
+        rewrite {http.matchers.file.relative}
+        file_server
+    }
 
-	# If not found, attempt to serve precompressed files from /client folder
-	@client {
-		path /client*
-		file {
-			try_files {path} {path}/ /index.html
-			split_path .gz .br
-		}
-	}
-	handle @client {
-		rewrite {http.matchers.file.relative}
-		file_server {
-			precompressed br gzip
-		}
-	}
+    # If not found, serve files from the /client folder
+    @client {
+        path /client*
+        file {
+            try_files {path} {path}/ /index.html
+        }
+    }
+    handle @client {
+        rewrite {http.matchers.file.relative}
+        file_server
+    }
 
-	# Proxy any other requests to the node server running on port 1211
-	reverse_proxy /* localhost:1211
+    # Proxy any other requests to the node server running on port 1211
+    reverse_proxy /* localhost:1211
 }
