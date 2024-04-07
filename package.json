@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "bunx --bun vite dev",
     "process-blog": "cd scripts && bun prebuild.ts",
-    "build": "bun run process-blog && bunx --bun vite build && bun run after-build",
+    "build": "bun run process-blog && ORIGIN=https://vps.puruvj.dev bunx --bun vite build && bun run after-build",
     "after-build": "cd scripts && bun postbuild.js",
     "preview": "bun -r dotenv/config build/index.js"
   },
