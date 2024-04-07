@@ -1,6 +1,9 @@
 vps.puruvj.dev {
 	root * /path/to/your/site
 
+  # Set a custom header with an emoji value
+  header * X-Custom-Emoji "🚀"
+
 	# Attempt to serve precompressed files from /prerendered folder
 	@prerendered {
 		path /prerendered*
