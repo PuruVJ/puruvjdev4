@@ -9,7 +9,7 @@
       "autorestart": true,
       "env": {
         "PORT": 1211,
-        "ORIGIN": "https://puruvj.dev"
+        "ORIGIN": "https://vps.puruvj.dev"
       }
     }
   ]
