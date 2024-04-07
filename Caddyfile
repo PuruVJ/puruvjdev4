@@ -1,4 +1,4 @@
-:3134 {
+vps.puruvj.dev {
 	root * /path/to/your/site
 
     # Set a custom header with an emoji value for all responses
