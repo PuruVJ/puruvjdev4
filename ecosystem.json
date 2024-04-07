@@ -8,7 +8,8 @@
       "exec_mode": "fork",
       "autorestart": true,
       "env": {
-        "PORT": 1211
+        "PORT": 1211,
+        "ORIGIN": "https://vps.puruvj.dev"
       }
     }
   ]
