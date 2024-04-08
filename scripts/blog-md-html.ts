@@ -2,7 +2,7 @@ import { promises as fsp } from 'fs';
 import { JSDOM } from 'jsdom';
 import markdown from 'markdown-it';
 import readingTime from 'reading-time';
-import { getHighlighter } from 'shiki';
+import { getHighlighter, bundledLanguagesInfo } from 'shiki/bundle/full';
 import { getBlogData } from './blog-data';
 import {
   generateTOCPlugin,
@@ -13,22 +13,42 @@ import {
   twemojiPlugin,
 } from './blog-plugins/index';
 import { ASSETS_ROOT_PATH } from './constants';
-import type { UnwrapPromise } from './types';
+import type { BlogData, UnwrapPromise } from './types';
 
 export async function blogMDHtml({
   blogData,
   seriesList,
 }: UnwrapPromise<ReturnType<typeof getBlogData>>) {
   const highlighter = await getHighlighter({
-    theme: 'material-theme-palenight',
+    themes: ['material-theme-palenight'],
+    langs: [
+      'typescript',
+      'svelte',
+      'js',
+      'ts',
+      'json',
+      'md',
+      'py',
+      'go',
+      'sh',
+      'tsx',
+      'jsx',
+      'diff',
+      'powershell',
+    ],
   });
 
-  const md = markdown({ html: true, highlight: highlighter.codeToHtml });
+  const md = markdown({
+    html: true,
+    highlight: (str, lang, attrs) =>
+      highlighter.codeToHtml(str, { lang, theme: 'material-theme-palenight' }),
+  });
 
   console.log('<<<--------- Series found --------->>>');
   console.log(seriesList);
   console.log('\n');
 
+  const data: Record<string, BlogData> = {};
   // Let's do it
   for (let {
     body,
@@ -69,24 +89,34 @@ export async function blogMDHtml({
     // Calculate reading time
     const reading_time = readingTime(html, { wordsPerMinute: 400 }).minutes;
 
-    fsp.writeFile(
-      `${ASSETS_ROOT_PATH}/data/blog/${id}.json`,
-      JSON.stringify({
-        cover_image,
-        title,
-        date,
-        description,
-        body: html,
-        id,
-        reading_time,
-        toc,
-        series,
-        seriesIndex,
-        redirectTo,
-        platform,
-      }),
-    );
+    data[id] = {
+      cover_image,
+      title,
+      date,
+      description,
+      body: html,
+      id,
+      reading_time,
+      toc,
+      series,
+      seriesIndex,
+      redirectTo,
+      platform,
+    };
 
     console.log('\n');
   }
+
+  try {
+    await fsp.mkdir(new URL('../src/lib/generated', import.meta.url), { recursive: true });
+  } catch {}
+
+  fsp.writeFile(
+    new URL('../src/lib/generated/blog-map.ts', import.meta.url),
+    `// @ts-ignore\nexport const blogMap = ${JSON.stringify(
+      data,
+      null,
+      2,
+    )} as Record<string, import('../../../scripts/types').BlogData>;`,
+  );
 }

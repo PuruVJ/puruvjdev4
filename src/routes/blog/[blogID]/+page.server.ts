@@ -1,5 +1,6 @@
 import type { IBlog } from '$lib/interfaces/blog.interface';
-import { fail, json, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
+import { blogMap } from '$lib/generated/blog';
 import { parse } from 'node:path';
 
 export let prerender = false;
@@ -16,8 +17,7 @@ function getCacheFile() {
 }
 
 export const load = async ({ params: { blogID }, fetch, setHeaders }) => {
-  const res = await fetch(`/data/blog/${blogID}.json`);
-  const data: IBlog = await res.json();
+  const data = blogMap[blogID];
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
 
