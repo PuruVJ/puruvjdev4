@@ -2,7 +2,7 @@ import { promises as fsp } from 'fs';
 import { JSDOM } from 'jsdom';
 import markdown from 'markdown-it';
 import readingTime from 'reading-time';
-import { getHighlighter, bundledLanguagesInfo } from 'shiki/bundle/full';
+import { getHighlighter } from 'shiki/bundle/full';
 import { getBlogData } from './blog-data';
 import {
   generateTOCPlugin,
@@ -10,9 +10,7 @@ import {
   imageOptimMarkupPlugin,
   linkNoOpenerPlugin,
   seriesLinksPlugin,
-  twemojiPlugin,
 } from './blog-plugins/index';
-import { ASSETS_ROOT_PATH } from './constants';
 import type { BlogData, UnwrapPromise } from './types';
 
 export async function blogMDHtml({
