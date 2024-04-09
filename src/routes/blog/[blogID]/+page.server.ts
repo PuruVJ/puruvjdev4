@@ -1,6 +1,5 @@
-import type { IBlog } from '$lib/interfaces/blog.interface';
-import { fail, redirect } from '@sveltejs/kit';
 import { blogMap } from '$lib/generated/blog';
+import { fail, redirect } from '@sveltejs/kit';
 import { parse } from 'node:path';
 
 export let prerender = false;
@@ -16,15 +15,10 @@ function getCacheFile() {
   return Bun.file(root + '/likes.json');
 }
 
-export const load = async ({ params: { blogID }, fetch, setHeaders }) => {
+export const load = async ({ params: { blogID } }) => {
   const data = blogMap[blogID];
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
-
-  // Cache for the CDN
-  setHeaders({
-    'Cache-Control': 's-maxage=1d, stale-while-revalidate',
-  });
 
   // get the file
   const cache_file = getCacheFile();
