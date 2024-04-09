@@ -4,14 +4,14 @@ vps.puruvj.dev {
     # Set a custom header with an emoji value for all responses
     header * X-Custom-Emoji "🚀"
 
-    # Serve files from the /prerendered folder if they exist
+    # Attempt to serve pre-rendered HTML files from the /prerendered folder
     @prerendered {
-        path /prerendered*
         file {
-            try_files {path} {path}/ /index.html
+            try_files /prerendered{path}.html /prerendered{path}/index.html
         }
     }
     handle @prerendered {
+        root * ~/puruvjdev4/build
         rewrite {http.matchers.file.relative}
         file_server
     }
