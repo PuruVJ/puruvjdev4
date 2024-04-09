@@ -81,8 +81,6 @@ export async function blogMDHtml({
 
     const toc = generateTOCPlugin(document);
 
-    document = twemojiPlugin(document);
-
     // Finally
     html = document.body.innerHTML;
 
