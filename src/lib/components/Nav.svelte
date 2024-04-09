@@ -115,7 +115,7 @@
     --marker-opacity: 0.4;
     --border-radius: 0;
 
-    display: block;
+    display: inline-block;
 
     user-select: none;
 
@@ -229,6 +229,7 @@
 
   @media screen and (max-width: 405px) {
     a {
+      padding-block: 0.3rem;
       margin: 0.2rem 0.2rem !important;
     }
   }
