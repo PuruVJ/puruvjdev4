@@ -1,13 +1,12 @@
 <script lang="ts">
-  import IntersectionObserver from 'svelte-intersection-observer';
+  import { inview } from 'svelte-inview';
   import ThemeSwitcher from '../components/ThemeSwitcher.svelte';
   import RssLink from '../components/RSSLink.svelte';
   import { theme } from '../stores/theme.store';
   import SiteLogo from './SiteLogo.svelte';
   import { page as skPage } from '$app/stores';
 
-  let intersecting: boolean;
-  let smigget: HTMLDivElement;
+  let intersecting = false;
 
   export let page: string;
 </script>
@@ -47,9 +46,7 @@
   </span>
 </nav>
 
-<IntersectionObserver element={smigget} bind:intersecting>
-  <div bind:this={smigget} class="smigget" />
-</IntersectionObserver>
+<div use:inview on:inview_change={({ detail }) => (intersecting = detail.inView)} class="smigget" />
 
 <style lang="scss">
   nav {
