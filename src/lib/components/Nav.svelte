@@ -4,6 +4,7 @@
   import RssLink from '../components/RSSLink.svelte';
   import { theme } from '../stores/theme.store';
   import SiteLogo from './SiteLogo.svelte';
+  import { page as skPage } from '$app/stores';
 
   let intersecting: boolean;
   let smigget: HTMLDivElement;
@@ -42,7 +43,7 @@
   <span class="flex" />
   <span class="theme-switcher">
     <RssLink />
-    <ThemeSwitcher />
+    <ThemeSwitcher initialTheme={$skPage.data.theme} />
   </span>
 </nav>
 
@@ -71,7 +72,9 @@
 
     border-radius: 0 0 1rem 1rem;
 
-    transition: box-shadow 150ms ease-out, background-color var(--transition-duration) ease-in;
+    transition:
+      box-shadow 150ms ease-out,
+      background-color var(--transition-duration) ease-in;
 
     &.dark.shadow {
       background-color: #383a3e;
@@ -82,7 +85,9 @@
     }
 
     &.shadow {
-      box-shadow: 0 3.4px 6.3px rgba(0, 0, 0, 0.099), 0 27px 50px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 3.4px 6.3px rgba(0, 0, 0, 0.099),
+        0 27px 50px rgba(0, 0, 0, 0.1);
     }
   }
 

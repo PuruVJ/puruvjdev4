@@ -13,19 +13,7 @@
 
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body>
+  <body data-theme="%sveltekit.theme%">
     <div id="svelte">%sveltekit.body%</div>
-
-    <script>
-      // Get localstorage value
-      const localTheme = localStorage.getItem('theme');
-      const prefersTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      const theme = localTheme || (prefersTheme ? 'dark' : 'light');
-
-      document.body.dataset.theme = theme;
-
-      localStorage.setItem('theme', theme);
-    </script>
   </body>
 </html>
