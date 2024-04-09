@@ -7,6 +7,10 @@ export async function generateBlogsList({ blogData }: { blogData: BlogData[] }) 
 
   const finalData = blogData.map(({ body, cover_image, ...data }) => data);
 
+  try {
+    await fsp.mkdir(new URL('../src/lib/generated', import.meta.url));
+  } catch {}
+
   // Write data
   fsp.writeFile(
     new URL('../src/lib/generated/blog-list.ts', import.meta.url),
