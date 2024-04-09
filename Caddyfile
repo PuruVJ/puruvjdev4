@@ -29,5 +29,7 @@ vps.puruvj.dev {
     }
 
     # Proxy any other requests to the node server running on port 1211
-    reverse_proxy /* localhost:1211
+    reverse_proxy /* localhost:1211 {
+        header_up Origin https://vps.puruvj.dev
+    }
 }
