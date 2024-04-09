@@ -38,8 +38,6 @@ export async function getBlogData() {
     // Reset the cover image if required
     attrs.cover_image = attrs.cover_image || `${RELATIVE_ASSETS_PATH}/media/blog-social-intro.png`;
 
-    attrs.title = getEmoji(attrs.title);
-
     const series = attrs.series;
 
     let seriesIndex = 0;

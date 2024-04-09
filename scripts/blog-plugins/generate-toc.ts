@@ -23,7 +23,7 @@ export function generateTOCPlugin(document: Document) {
     TOCdata.push({
       indent,
       id,
-      title: getEmoji(title),
+      title,
       length,
     });
   }
