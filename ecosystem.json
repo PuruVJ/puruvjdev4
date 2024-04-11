@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "puruvjdev4",
+      "script": "build/index.js",
+      "interpreter": "bun",
+      "instances": "max",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "env": {
+        "PORT": 1211,
+        "ORIGIN": "http://puruvj.dev"
+      }
+    }
+  ]
+}

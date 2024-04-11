@@ -1,7 +1,6 @@
 import { promises as fsp } from 'fs';
 import markdown from 'markdown-it';
 import yaml from 'yaml';
-import { getEmoji } from './common/emoji';
 import { ASSETS_ROOT_PATH, SRC_FOLDER_PATH } from './constants';
 import { optimizeBlogImages } from './optimize-images';
 import type { ExportedImagesMetaData, Work } from './types';
@@ -23,7 +22,7 @@ export async function generateWorksList() {
       false,
     )) as ExportedImagesMetaData;
 
-    const parsedDescription = getEmoji(md.render(description));
+    const parsedDescription = md.render(description);
 
     dataToCreate.push({ ...work, image: img, description: parsedDescription });
   }

@@ -1,32 +1,30 @@
 <script lang="ts">
+  import { enhance } from '$app/forms';
   import { mdiMoonFull, mdiWhiteBalanceSunny } from '@mdi/js';
   import { onMount } from 'svelte';
-  import { theme } from '../stores/theme.store';
   import type { Theme } from '../stores/theme.store';
+  import { theme } from '../stores/theme.store';
   import Icon from './Icon.svelte';
   import Moon from './Moon.svelte';
   import RadioactiveSvg from './RadioactiveSVG.svelte';
 
+  export let initialTheme: Theme | undefined;
+
   // List of themes
   const themes: Theme[] = ['light', 'midday', 'dark', 'radioactive'];
-  let currentThemeIndex = 0;
+  let currentThemeIndex = initialTheme ? themes.indexOf(initialTheme) : 0;
 
-  function nextTheme() {
+  function nextTheme(currentThemeIndex: number) {
     const { length } = themes;
 
-    currentThemeIndex = (currentThemeIndex + 1) % length;
+    return (currentThemeIndex + 1) % length;
   }
 
   onMount(() => {
     // Initialize with localstorage
-    const localTheme = localStorage.getItem('theme');
     const browserPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    currentThemeIndex = !localTheme
-      ? browserPrefersDark
-        ? 2
-        : 0
-      : themes.indexOf(localTheme as any);
+    currentThemeIndex = initialTheme ? themes.indexOf(initialTheme) : browserPrefersDark ? 2 : 0;
   });
 
   $: $theme = themes[currentThemeIndex];
@@ -39,17 +37,30 @@
   />
 </svelte:head>
 
-<button aria-label={themes[currentThemeIndex]} on:click={nextTheme}>
-  {#if currentThemeIndex === 0}
-    <Icon path={mdiWhiteBalanceSunny} />
-  {:else if currentThemeIndex === 1}
-    <Icon path={mdiMoonFull} />
-  {:else if currentThemeIndex === 2}
-    <Moon />
-  {:else}
-    <RadioactiveSvg />
-  {/if}
-</button>
+<form
+  method="post"
+  action="/theme"
+  use:enhance={() => {
+    currentThemeIndex = nextTheme(currentThemeIndex);
+
+    return ({ update }) => {
+      update();
+    };
+  }}
+>
+  <input type="hidden" name="theme" value={themes[nextTheme(currentThemeIndex)]} />
+  <button type="submit" aria-label={themes[currentThemeIndex]}>
+    {#if currentThemeIndex === 0}
+      <Icon path={mdiWhiteBalanceSunny} />
+    {:else if currentThemeIndex === 1}
+      <Icon path={mdiMoonFull} />
+    {:else if currentThemeIndex === 2}
+      <Moon />
+    {:else}
+      <RadioactiveSvg />
+    {/if}
+  </button>
+</form>
 
 <style>
   button {

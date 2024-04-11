@@ -10,3 +10,5 @@ wrangler.toml
 .env
 
 .vercel
+likes.json
+generated

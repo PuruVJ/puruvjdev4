@@ -1,5 +1,5 @@
 /// <reference types="@sveltejs/kit" />
-/// <reference types="svelte" />
+/// <reference types="bun-types" />
 /// <reference types="vite/client" />
 /// <reference types="@cloudflare/workers-types" />
 

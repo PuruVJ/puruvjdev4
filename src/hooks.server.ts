@@ -1,11 +1,12 @@
-import { dev } from '$app/environment';
-import type { Handle } from '@sveltejs/kit';
+import type { Theme } from '$lib/stores/theme.store';
 
-export const handle: Handle = async ({ event, resolve }) => {
-  if (dev) {
-    const { fallBackPlatformToMiniFlareInDev } = await import('./miniflare');
-    event.platform = await fallBackPlatformToMiniFlareInDev(event.platform);
-  }
+export async function handle({ event, resolve }) {
+  return resolve(event, {
+    transformPageChunk(input) {
+      const theme = (event.cookies.get('theme') ?? '') as Theme;
+      const html = input.html.replace('%sveltekit.theme%', theme);
 
-  return resolve(event);
-};
+      return html;
+    },
+  });
+}

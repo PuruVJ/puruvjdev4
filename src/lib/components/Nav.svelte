@@ -1,12 +1,12 @@
 <script lang="ts">
-  import IntersectionObserver from 'svelte-intersection-observer';
+  import { inview } from 'svelte-inview';
   import ThemeSwitcher from '../components/ThemeSwitcher.svelte';
   import RssLink from '../components/RSSLink.svelte';
   import { theme } from '../stores/theme.store';
   import SiteLogo from './SiteLogo.svelte';
+  import { page as skPage } from '$app/stores';
 
-  let intersecting: boolean;
-  let smigget: HTMLDivElement;
+  let intersecting = false;
 
   export let page: string;
 </script>
@@ -42,13 +42,11 @@
   <span class="flex" />
   <span class="theme-switcher">
     <RssLink />
-    <ThemeSwitcher />
+    <ThemeSwitcher initialTheme={$skPage.data.theme} />
   </span>
 </nav>
 
-<IntersectionObserver element={smigget} bind:intersecting>
-  <div bind:this={smigget} class="smigget" />
-</IntersectionObserver>
+<div use:inview on:inview_change={({ detail }) => (intersecting = detail.inView)} class="smigget" />
 
 <style lang="scss">
   nav {
@@ -71,7 +69,9 @@
 
     border-radius: 0 0 1rem 1rem;
 
-    transition: box-shadow 150ms ease-out, background-color var(--transition-duration) ease-in;
+    transition:
+      box-shadow 150ms ease-out,
+      background-color var(--transition-duration) ease-in;
 
     &.dark.shadow {
       background-color: #383a3e;
@@ -82,7 +82,9 @@
     }
 
     &.shadow {
-      box-shadow: 0 3.4px 6.3px rgba(0, 0, 0, 0.099), 0 27px 50px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 3.4px 6.3px rgba(0, 0, 0, 0.099),
+        0 27px 50px rgba(0, 0, 0, 0.1);
     }
   }
 
@@ -113,7 +115,7 @@
     --marker-opacity: 0.4;
     --border-radius: 0;
 
-    display: block;
+    display: inline-block;
 
     user-select: none;
 
@@ -227,6 +229,7 @@
 
   @media screen and (max-width: 405px) {
     a {
+      padding-block: 0.3rem;
       margin: 0.2rem 0.2rem !important;
     }
   }

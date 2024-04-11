@@ -1,3 +1,5 @@
+import { TOC } from './blog-plugins/generate-toc';
+
 export type ExportedImagesMetaData = {
   large: {
     org: string;
@@ -28,6 +30,8 @@ export declare type BlogData = {
   date: Date;
   series?: string;
   seriesIndex: number;
+  reading_time?: number;
+  toc?: TOC[];
 
   cover_image: string;
 

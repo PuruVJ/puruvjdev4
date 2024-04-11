@@ -5,9 +5,8 @@
   import WavyHr from '$lib/components/WavyHR.svelte';
   import { fadeIn, fadeOut } from '$lib/fade';
   import { onMount } from 'svelte';
-  import type { PageData } from './$types';
 
-  export let data: PageData;
+  export let data;
   $: ({ blogsList } = data);
 
   const age = calculateAge();
@@ -64,9 +63,11 @@
       <h2 id="about-me">
         I am a {age} y/o
         <mark>self-taught fullstack web developer</mark>
-        based in India with 6 years of experience. I make
+        based in India with {Math.floor(
+          (Date.now() - +new Date('22 March, 2015')) / (1000 * 60 * 60 * 24 * 365),
+        )} years of experience. I make
         <mark>blazing fast and performant</mark>
-        web apps. Like this blog.
+        web apps.
       </h2>
     </div>
   </section>
@@ -116,6 +117,7 @@
     width: 25vmax;
     height: 25vmax;
     min-height: 0;
+    min-width: 0;
 
     box-shadow: 0 0 0 1rem var(--app-color-primary);
 
@@ -187,6 +189,11 @@
       flex-direction: column;
     }
 
+    figure {
+      width: 90%;
+      height: 20rem;
+    }
+
     img {
       width: 90%;
       height: auto;
@@ -194,8 +201,13 @@
 
     #written {
       max-width: 100%;
+      text-align: center;
 
       margin-top: 2rem;
+    }
+
+    #about-me {
+      font-size: 1.414rem;
     }
 
     .contact-me {

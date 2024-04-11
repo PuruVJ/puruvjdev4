@@ -1,7 +1,7 @@
 import { htmlToText } from 'html-to-text';
 import { getEmoji } from 'scripts/common/emoji';
 
-type TOC = {
+export type TOC = {
   indent: number;
   id: string;
   title: string;
@@ -23,7 +23,7 @@ export function generateTOCPlugin(document: Document) {
     TOCdata.push({
       indent,
       id,
-      title: getEmoji(title),
+      title,
       length,
     });
   }

@@ -1,0 +1,35 @@
+puruvj.dev {
+	root * /path/to/your/site
+
+    # Set a custom header with an emoji value for all responses
+    header * X-Custom-Emoji "🚀"
+
+    # Attempt to serve pre-rendered HTML files from the /prerendered folder
+    @prerendered {
+        file {
+            try_files /prerendered{path}.html /prerendered{path}/index.html
+        }
+    }
+    handle @prerendered {
+        root * ~/puruvjdev4/build
+        rewrite {http.matchers.file.relative}
+        file_server
+    }
+
+    # If not found, serve files from the /client folder
+    @client {
+        path /client*
+        file {
+            try_files {path} {path}/ /index.html
+        }
+    }
+    handle @client {
+        rewrite {http.matchers.file.relative}
+        file_server
+    }
+
+    # Proxy any other requests to the node server running on port 1211
+    reverse_proxy /* localhost:1211 {
+        header_up ORIGIN http://puruvj.dev
+    }
+}
