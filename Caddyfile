@@ -1,4 +1,4 @@
-vps.puruvj.dev {
+puruvj.dev {
 	root * /path/to/your/site
 
     # Set a custom header with an emoji value for all responses
@@ -30,6 +30,6 @@ vps.puruvj.dev {
 
     # Proxy any other requests to the node server running on port 1211
     reverse_proxy /* localhost:1211 {
-        header_up ORIGIN http://vps.puruvj.dev
+        header_up ORIGIN http://puruvj.dev
     }
 }
