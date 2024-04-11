@@ -15,6 +15,16 @@ function getCacheFile() {
   return Bun.file(root + '/likes.json');
 }
 
+async function syncObj() {
+  const cache_file = getCacheFile();
+
+  if (await cache_file.exists()) {
+    obj = await cache_file.json();
+  } else {
+    await Bun.write(cache_file, JSON.stringify(obj, null, 2));
+  }
+}
+
 export const load = async ({ params: { blogID } }) => {
   const data = blogMap[blogID];
 
@@ -23,11 +33,7 @@ export const load = async ({ params: { blogID } }) => {
   // get the file
   const cache_file = getCacheFile();
 
-  if (await cache_file.exists()) {
-    obj = await cache_file.json();
-  } else {
-    await Bun.write(cache_file, JSON.stringify(obj, null, 2));
-  }
+  await syncObj();
 
   console.log(cache_file.name, obj);
 
@@ -40,6 +46,8 @@ export const actions = {
     const operation = formdata.get('operation') as 'inc' | 'dec';
 
     const blogID = params.blogID;
+
+    await syncObj();
 
     const likes = obj[blogID];
 

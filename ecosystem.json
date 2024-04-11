@@ -4,7 +4,7 @@
       "name": "puruvjdev4",
       "script": "build/index.js",
       "interpreter": "bun",
-      "instances": "1",
+      "instances": "max",
       "exec_mode": "fork",
       "autorestart": true,
       "env": {
