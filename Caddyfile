@@ -1,4 +1,4 @@
-puruvj.dev {
+puruvj.dev, *.puruvj.dev {
 	root * /path/to/your/site
 
     # Set a custom header with an emoji value for all responses
