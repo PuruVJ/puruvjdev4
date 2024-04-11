@@ -26,7 +26,7 @@ export const load = async ({ params: { blogID } }) => {
   if (await cache_file.exists()) {
     obj = await cache_file.json();
   } else {
-    await Bun.write(cache_file, JSON.stringify(obj));
+    await Bun.write(cache_file, JSON.stringify(obj, null, 2));
   }
 
   console.log(cache_file.name, obj);
@@ -54,7 +54,7 @@ export const actions = {
     // get the file
     const cache_file = getCacheFile();
 
-    Bun.write(cache_file, JSON.stringify(obj));
+    Bun.write(cache_file, JSON.stringify(obj, null, 2));
 
     return { likes: newLikes };
   },
