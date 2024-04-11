@@ -2,7 +2,7 @@ import { blogMap } from '$lib/generated/blog';
 import { fail, redirect } from '@sveltejs/kit';
 import { parse } from 'node:path';
 
-export let prerender = false;
+export const prerender = false;
 
 let obj: Record<string, number> = {};
 
@@ -22,6 +22,8 @@ export const load = async ({ params: { blogID } }) => {
 
   // get the file
   const cache_file = getCacheFile();
+
+  console.log(cache_file);
 
   if (await cache_file.exists()) {
     obj = await cache_file.json();
