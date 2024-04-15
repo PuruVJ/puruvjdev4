@@ -9,15 +9,6 @@
   export let data;
   $: ({ blogsList } = data);
 
-  const age = calculateAge();
-
-  function calculateAge() {
-    // birthday is a date
-    var ageDifMs = Date.now() - +new Date('12 Nov, 2001');
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-  }
-
   onMount(async () => {
     import('lazysizes');
 
@@ -61,8 +52,7 @@
     <div id="written">
       <h1>Hi, I'm <mark>Puru</mark></h1>
       <h2 id="about-me">
-        I am a {age} y/o
-        <mark>self-taught fullstack web developer</mark>
+        I am a <mark>fullstack web developer</mark>
         based in India with {Math.floor(
           (Date.now() - +new Date('22 March, 2015')) / (1000 * 60 * 60 * 24 * 365),
         )} years of experience. I make
@@ -150,6 +140,14 @@
     line-height: 1.618;
   }
 
+  h1 {
+    font-size: 3.2em;
+  }
+
+  h2 {
+    font-size: 1.85em;
+  }
+
   .hr {
     width: 100%;
 
@@ -181,6 +179,16 @@
       width: var(--size);
       height: auto;
       min-height: 0;
+    }
+  }
+
+  @media (max-width: 1170px) {
+    h1 {
+      font-size: 2.618em;
+    }
+
+    h2 {
+      font-size: 1.414em;
     }
   }
 
