@@ -4,8 +4,6 @@ import { ASSETS_ROOT_PATH, RELATIVE_ASSETS_PATH } from './constants';
 import { optimizeGif } from './gif-module';
 import { gifMarkup, imageMarkup } from './markup';
 import { ExportedImagesMetaData } from './types';
-import { applyTransforms, builtins, generateTransforms } from 'imagetools-core';
-import sharp from 'sharp';
 
 /**
  * Optimize the image and create its different versions
