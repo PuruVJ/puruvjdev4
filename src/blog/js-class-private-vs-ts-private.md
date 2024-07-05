@@ -27,7 +27,7 @@ class Person {
 }
 ```
 
-As you can see, its not as compact as JS version, but it works well. But what are the differences between the two? How do TypeScript's private property work?
+As you can see, it's not as compact as JS version, but it works well. But what are the differences between the two? How do TypeScript's private properties work?
 
 # TypeScript lies
 
@@ -69,7 +69,7 @@ declare class Person {
 }
 ```
 
-There is nothing stopping anyone from calling `person.name`. Sure there will be red squiggles in the editor, but it can be bypassed.
+There is nothing stopping anyone from accessing `person.name`. Sure there will be red squiggles in the editor, but it can be bypassed.
 
 An excerpt from Harry Potter to understand it better:
 
@@ -89,11 +89,11 @@ However if you wanna hang around to see how I reached that conclusion and when t
 
 ## Setting up benchmark
 
-We'll use an extremely simple benchmark to see the performance difference. PLain vanilla JS.
+We'll use an extremely simple benchmark to see the performance difference. Plain vanilla JS.
 
 > How are you going to emulate TypeScript private properties in JS?
 >
-> Easy: TypeScript private properties are just JS public properties. In fact, I also lied to you, this post isn't a difference between `private count vs #count` in JS. It is a difference between public and private properties in JS. Plain and simple.
+> Easy: TypeScript private properties are just JS public properties. In fact, I also lied to you. This post isn't a difference between `private count vs #count` in JS. It is a difference between public and private properties in JS. Plain and simple.
 
 ```ts
 class Something {
@@ -121,7 +121,7 @@ class Something {
 }
 ```
 
-Pretty simple right? We're just creating a class with two public and two private properties, and then we're timing how long it takes to access them a million times.
+Pretty simple, right? We're just creating a class with two public and two private properties, and then we're timing how long it takes to access them a million times.
 
 Executing this is one line:
 
@@ -136,21 +136,21 @@ Private: 3.4000000059604645
 Public: 2.300000011920929
 ```
 
-So private property access is 1.47x slower than public property access. That's it. It may seem a lot but don't forget, we're accessing them a million times. If I run it for 1000 times only, then output is this, mos tof the time:
+So private property access is 1.47x slower than public property access. That's it. It may seem a lot but don't forget, we're accessing them a million times. If I run it for only 1000 times, then the output is this, most of the time:
 
 ```txt
 Private: 0
 Public: 0
 ```
 
-Its so fast there's no difference calling it a thousand times, and in most prod apps it will be called just a few times.
+It's so fast there's no difference calling it a thousand times, and in most prod apps it will be called just a few times.
 
 ### There's more: Caching
 
 The above is the result on first run, means the class instance is created for the first time and Browser hasn't cached the class yet. But what if we run it a few more times and see how cache affects the result?
 
 ```ts
-new Something();
+new Something(); // Repeat this line 10 times
 new Something();
 new Something();
 new Something();
@@ -198,7 +198,7 @@ Public: 0.5
 
 The very first time, the browser cached public property access, making it almost 6.2x faster than (correspondingly) private property access. But the rest of the time, public properties are cached well enough such that there are multiple instances of `0.5`.
 
-Private properties are always a bit slower even when cached, infact most of the time its 1.4-1.5x slower, in line with uncached benchmark above.
+Private properties are always a bit slower even when cached, in fact most of the time its 1.4-1.5x slower, in line with uncached benchmark above.
 
 I bet this is because browser has to keep track of checks for private properties to deny any external access to them. It's like building a backend. A backend may be cached really really well in Redis, but every request requires checking authentication adds some overhead.
 
