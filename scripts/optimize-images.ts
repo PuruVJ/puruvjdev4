@@ -4,6 +4,8 @@ import { ASSETS_ROOT_PATH, RELATIVE_ASSETS_PATH } from './constants';
 import { optimizeGif } from './gif-module';
 import { gifMarkup, imageMarkup } from './markup';
 import { ExportedImagesMetaData } from './types';
+import { applyTransforms, builtins, generateTransforms } from 'imagetools-core';
+import sharp from 'sharp';
 
 /**
  * Optimize the image and create its different versions
@@ -28,7 +30,7 @@ export async function optimizeBlogImages(src: string, altText: string, returnMar
   const folderPath = `${ASSETS_ROOT_PATH}/${baseFolder}/${fileName}`;
 
   const getOrgPath = (size: 'large' | 'small') =>
-    `${RELATIVE_ASSETS_PATH}/${baseFolder}/${fileName}/${size}.${format}`;
+    `${RELATIVE_ASSETS_PATH}/${baseFolder}/${fileName}/${size}.webp`;
 
   /**
    * The list of file paths to return
@@ -94,6 +96,7 @@ export async function optimizeBlogImages(src: string, altText: string, returnMar
           quality: 80,
           width,
           crop: 'scale',
+          format: 'webp',
         },
       ],
       use_filename: true,
@@ -106,6 +109,7 @@ export async function optimizeBlogImages(src: string, altText: string, returnMar
       .then(async (blob) => Buffer.from(await blob.arrayBuffer()));
 
   const [bigOriginal, smallOriginal] = await Promise.all([upload(1200), upload(600)]);
+  console.log('APIRESP', [bigOriginal, smallOriginal]);
   const [bigOriginalBuffer, smallOriginalBuffer] = await Promise.all([
     fetchImg(bigOriginal.url),
     fetchImg(smallOriginal.url),
@@ -115,8 +119,8 @@ export async function optimizeBlogImages(src: string, altText: string, returnMar
   list.aspectHTW = bigOriginal.height / bigOriginal.width;
 
   // Write inside the folder
-  fsp.writeFile(`${folderPath}/large.${format}`, bigOriginalBuffer);
-  fsp.writeFile(`${folderPath}/small.${format}`, smallOriginalBuffer);
+  fsp.writeFile(`${folderPath}/large.webp`, bigOriginalBuffer);
+  fsp.writeFile(`${folderPath}/small.webp`, smallOriginalBuffer);
 
   // Also write the data.json
   fsp.writeFile(

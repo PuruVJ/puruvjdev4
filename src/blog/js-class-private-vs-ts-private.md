@@ -2,8 +2,10 @@
 title: 'perf: private count vs #count'
 description: What are the performance differences between private and public count in JavaScript?
 date: 5 July, 2024 10:30
-cover_image: media/js-class-private-vs-ts-private--hero.png
+cover_image: media/js-class-private-vs-ts-private--hero.jpg
 ---
+
+![Cover image](../../static/media/js-class-private-vs-ts-private--hero.jpg)
 
 Which one is faster: `private count` or `#count`?
 

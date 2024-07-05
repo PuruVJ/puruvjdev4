@@ -20,6 +20,7 @@ export async function imageOptimMarkupPlugin(document: Document) {
     // Now lets put the picture tag in there
     const containerDiv = document.createElement('div');
     containerDiv.classList.add('picture-container');
+    if (src.includes('private')) console.log(await optimizeBlogImages(src, img.alt));
 
     // Let's add the main stuff to this picture
     // @ts-ignore
