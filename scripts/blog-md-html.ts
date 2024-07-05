@@ -71,7 +71,6 @@ export async function blogMDHtml({
     document = headingsWithAnchorsPlugin(document);
 
     if (series) {
-      /** @type {Array}*/
       let seriesPostsList = seriesList[series].sort((p1, p2) => +p1.date - +p2.date);
 
       document = seriesLinksPlugin(document, seriesPostsList, series, id);
