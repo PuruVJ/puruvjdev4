@@ -21,7 +21,9 @@ Until 0.6.8, traverse had no dependencies. It was a simple package with a single
 
 > Source: [@passle\_](https://x.com/passle_/status/1810805530706792930)
 
-First graph is 0.6.8, second is 0.6.9. Just look at that graph, its scary. And what's messed up more, is that some dependencies are included multiple times. Let's take a dependency A. it links to B, C, D. Now, B links to E, F, G. But, F links back to A now. F which is a transitive dependency of A, links back to A, it requires A. What the hell!! That's called a circular dependency. It's not necessarily a bad thing, but here it's happening multiple times, and because of the nature of publishing, it might be possible that your node modules are actually ending up with multiple version of the same dependency, which itself has dependency on the same things, and the cycle continues. Downloading this package one time causes 100s of downloads. 1 package causing 100s of downloads. It's freaking insane.
+First graph is 0.6.8, second is 0.6.9. Just look at that graph, its scary. And what's messed up more, is that some of these transitive dependencies lead back to a dependency up in the chain, causing circular dependencies. Can this cause npm to download multiple versions of the same package? I don't know for sure, but it's not a good thing either way. Circular dependencies and references some of the hardest things to reason about in software engineering after caching and naming.
+
+> It's like a Christopher Nolan movie, but unentertaining 😄
 
 # Deeper issue
 
