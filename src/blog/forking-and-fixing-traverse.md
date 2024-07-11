@@ -7,9 +7,9 @@ cover_image: media/neotraverse-fixing--cover-size.png
 
 ![Alt text](../../static/media/neotraverse-fixing--cover-size.png)
 
-NPM: [https://www.npmjs.com/package/neotraverse](https://www.npmjs.com/package/neotraverse)
+NPM: [npmjs.com/package/neotraverse](https://www.npmjs.com/package/neotraverse)
 
-GITHUB: [https://github.com/puruvj/neotraverse](https://github.com/puruvj/neotraverse)
+GITHUB: [github.com/puruvj/neotraverse](https://github.com/puruvj/neotraverse)
 
 You might have heard of [traverse](https://github.com/ljharb/js-traverse). It's a package that allows you to traverse an object and execute a callback function on each property. It is quite a famous package, with over 8.5MILLION downloads per **week**. Uff thats a lot of downloads.
 
