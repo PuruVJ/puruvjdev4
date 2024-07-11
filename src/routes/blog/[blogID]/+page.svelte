@@ -47,7 +47,7 @@
   <title>{browserTitle} | Puru Vijay</title>
   <meta name="description" content={description} />
 
-  <meta property="og:title" content="{browserTitle} Puru Vijay" />
+  <meta property="og:title" content="{browserTitle} | Puru Vijay" />
   <meta property="og:description" content={description} />
   <meta property="og:image" content="https://puruvj.dev/{cover_image}" />
   <meta property="og:url" content="https://puruvj.dev/blog/{id}" />
