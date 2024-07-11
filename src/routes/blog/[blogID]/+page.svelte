@@ -44,7 +44,7 @@
 </script>
 
 <svelte:head>
-  <title>{browserTitle} Puru Vijay</title>
+  <title>{browserTitle} | Puru Vijay</title>
   <meta name="description" content={description} />
 
   <meta property="og:title" content="{browserTitle} Puru Vijay" />
@@ -92,7 +92,10 @@
     {/if}
   </span>
   <h1>{@html title}</h1>
-  <p><time>{formatDate(date)}</time> &bull; <span>{Math.ceil(reading_time)} min read</span></p>
+  <p>
+    <time>{formatDate(date.toString())}</time> &bull;
+    <span>{Math.ceil(reading_time)} min read</span>
+  </p>
   <article id="blog-content">
     {@html body}
   </article>
