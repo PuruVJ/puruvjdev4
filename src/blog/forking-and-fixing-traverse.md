@@ -11,7 +11,7 @@ NPM: [npmjs.com/package/neotraverse](https://www.npmjs.com/package/neotraverse)
 
 GITHUB: [github.com/puruvj/neotraverse](https://github.com/puruvj/neotraverse)
 
-You might have heard of [traverse](https://github.com/ljharb/js-traverse). It's a package that allows you to traverse an object and execute a callback function on each property. It is quite a famous package, with over 8.5MILLION downloads per **week**. Uff thats a lot of downloads.
+You might have heard of [traverse](https://github.com/ljharb/js-traverse). It's a package that allows you to traverse an object and execute a callback function on each property. It is quite a famous package, with over 8.5MILLION downloads per **week**. Oof thats a lot of downloads.
 
 Recently, the author who took over the package released a patch update(0.6.8 -> 0.6.9), which increased its bundle size from `1.5KB` to a whopping `18KB`. All in a single patch update. How did that even happen? I'll explain in this post.
 
