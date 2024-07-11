@@ -2,9 +2,11 @@
 title: 'neotraverse: Undoing the nightmare of traverse'
 description: This is the entire process of why and how I forked traverse npm package into neotraverse.
 date: 11 Jul, 2024 2:34 PM
+cover_image: media/neotraverse-fixing--passle-tweet.png'
 ---
 
 NPM: [https://www.npmjs.com/package/neotraverse](https://www.npmjs.com/package/neotraverse)
+
 GITHUB: [https://github.com/puruvj/neotraverse](https://github.com/puruvj/neotraverse)
 
 You might have heard of [traverse](https://github.com/ljharb/js-traverse). It's a package that allows you to traverse an object and execute a callback function on each property. It is quite a famous package, with over 8.5MILLION downloads per **week**. Uff thats a lot of downloads.
