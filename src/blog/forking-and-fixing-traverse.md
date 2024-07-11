@@ -23,7 +23,7 @@ Until 0.6.8, traverse had no dependencies. It was a simple package with a single
 
 First graph is 0.6.8, second is 0.6.9. Just look at that graph, its scary. And what's messed up more, is that some of these transitive dependencies lead back to a dependency up in the chain, causing circular dependencies. Can this cause npm to download multiple versions of the same package? I don't know for sure, but it's not a good thing either way. Circular dependencies and references some of the hardest things to reason about in software engineering after caching and naming.
 
-> It's like a Christopher Nolan movie, just not as unentertaining 😄
+> It's like a Christopher Nolan movie, just not as entertaining 😄
 
 # Deeper issue
 
