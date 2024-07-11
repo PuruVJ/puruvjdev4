@@ -1,9 +1,11 @@
 ---
-title: 'neotraverse: Undoing the nightmare of traverse'
+title: 'neotraverse: unbloating traverse'
 description: This is the entire process of why and how I forked traverse npm package into neotraverse.
 date: 11 Jul, 2024 2:34 PM
-cover_image: media/neotraverse-fixing--passle-tweet.png'
+cover_image: media/neotraverse-fixing--cover-size.png
 ---
+
+![Alt text](../../static/media/neotraverse-fixing--cover-size.png)
 
 NPM: [https://www.npmjs.com/package/neotraverse](https://www.npmjs.com/package/neotraverse)
 
@@ -19,13 +21,11 @@ Until 0.6.8, traverse had no dependencies. It was a simple package with a single
 
 > Source: [@passle\_](https://x.com/passle_/status/1810805530706792930)
 
-First graph is 0.6.8, second is 0.6.9. Just look at that graph, its horrifying. And what's messed up more, is that some dependencies are included multiple times. Let's take a dependency A. it links to B, C, D. Now, B links to E, F, G. But, F links back to A now. F which is a transitive dependency of A, links back to A, it requires A. What the hell!! That's called a circular dependency.It's not necessarily a bad thing always, but here it's happening multiple times, and because of the nature of publishing, it might be possible that your node modules are actually ending up with multiple version of the same dependency, which itself has dependency on the same things, and the cycle continues. Downloading this package one time causes 100s of downloads. 1 package causing 100s of downloads. It's freaking insane.
+First graph is 0.6.8, second is 0.6.9. Just look at that graph, its scary. And what's messed up more, is that some dependencies are included multiple times. Let's take a dependency A. it links to B, C, D. Now, B links to E, F, G. But, F links back to A now. F which is a transitive dependency of A, links back to A, it requires A. What the hell!! That's called a circular dependency. It's not necessarily a bad thing, but here it's happening multiple times, and because of the nature of publishing, it might be possible that your node modules are actually ending up with multiple version of the same dependency, which itself has dependency on the same things, and the cycle continues. Downloading this package one time causes 100s of downloads. 1 package causing 100s of downloads. It's freaking insane.
 
-# It gets worse...
+# Deeper issue
 
-Go to https://github.com/ljharb/js-traverse/blob/0f1e6f126a3d847864d3a80fc8227a2bb1f97c78/index.js, hit `CMD + F` and search for `TODO:`. What you will see will horrify you.
-
-> God bless Github, the link above will always work unless the entire repo is deleted.
+Go to [index.js](https://github.com/ljharb/js-traverse/blob/0f1e6f126a3d847864d3a80fc8227a2bb1f97c78/index.js), hit `CMD + F` and search for `TODO:`. What you will see will scare you.
 
 The comments are scattered through, so I'll just copy and consolidate all the lines here for you to see:
 
@@ -38,9 +38,9 @@ The comments are scattered through, so I'll just copy and consolidate all the li
 // TODO: use object.hasown
 ```
 
-6 comments, and 11 dependencies mentioned. 11. Means the author already had planned to inject more of his dependencies. And yes, a simple search will tell you that the current author is the author of all these libraries. There have been extensive discussions of the author's motivations for this, which I will not go into here.
+6 comments, and 11 dependencies mentioned. 11. Means the author already had planned to inject more of his dependencies. And yes, a simple search will tell you that the current author is the author of all these libraries as well.
 
-This stuff creeps me out. As a web developer and npm publisher with more than 100,000 downloads per month, I'm not sure if I should be doing this. **No one** should be doing this, its outright dependency terrorism. I strive to keep my packages as small as possible, and aggressively aiming to have Zero dependencies. This stuff is outright wrong.
+This stuff makes feel unsettled. As a web developer and npm publisher with more than 100,000 downloads per month, I'm not sure if I should be doing this. **No one** should be doing this. I strive to keep my packages as small as possible, and aggressively aim to have zero dependencies. And these comments signify that this package isn't getting any lighter.
 
 So I decided to take things into my own hands.
 
@@ -50,10 +50,10 @@ Introducing [neotraverse](https://github.com/puruvj/neotraverse), a fork of trav
 
 - Zero dependencies
 - 1.54KB min+brotli
-- Built-in types. Say bye to @types/traverse(Which isn't even up to date with latest package either way)
+- Built-in types. Say bye to @types/traverse
 - ESM-first
 - Legacy mode for drop-in replacement
-- Aggressively modern(es2022 at the time of writing)
+- Aggressively modern
 
 ## Installation
 
@@ -89,17 +89,21 @@ new Traverse(obj).forEach(function (value) {
 // Output: 1, 2, 3, 4, 5, 6, 7, 8
 ```
 
-API is identical to what it was before, except traverse is a class now `new Traverse(obj)`.
+API is identical to what it was before, except traverse is a class now: `new Traverse(obj)`.
 
 ## Legacy mode
 
-If you have too many instances of `traverse` in your codebase or you're running on an older version of NodeJS with ESM support, you can use the legacy mode.
+If you have too many instances of `traverse` in your codebase or you're running on an older version of NodeJS without ESM support, you can use the legacy mode.
+
+ESM:
 
 ```js
 import traverse from 'neotraverse/legacy';
+```
 
-// or
+CommonJS:
 
+```js
 const traverse = require('neotraverse/legacy');
 
 const obj = {
@@ -138,36 +142,36 @@ There are some internal tooling changes:
 - Fully TypeScript. That includes source code and tests
 - pnpm instead of npm.
 - Vitest instead of tape(Which also is the current author's package 😅)
-- tsup. No build step before, now it's needed cuz the source is TypeScript.
-- Remove eslint. I'd love to write a blog post about how much I dislike linters, but that's for another day.
+- tsup. No build step before, now it's needed for typescript and multiple targets.
+- Remove eslint. Not a fan of linters, but that's for another day.
 
 ## Attempt 1: Blindly converting to TypeScript
 
-I tried converting the code to TypeScript, but there was a big flaw in this plan: non-typescript files dont usually adhere to strict structures, which means typescript will just throw errors. So naturally, I used my judgement to replace non-working code with working TS code. Problem is, the tests weren't passing afterwards.
+I tried converting the code to TypeScript, but there was a big flaw in this plan: non-typescript files don't usually adhere to strict structures, which means typescript will just throw errors. So naturally, I used my judgement to replace non-working code with working TS code. Problem is, the tests weren't passing afterwards.
 
 Your own assumptions aren't always right.
 
 ## Attempt 2: Test-driven development
 
-I don't write many tests, but in this case it helped a lot.
+I don't write many tests, but in this case, the existing test suite helped a lot.
 
-After the first attempt had failed, I went with a bottom-up approach. I converted all the tests over to Vitest, and removed all the new TS code in favor of the same old JS code. This caused insane type errors in the index.ts file, but that was irrelevant at that time.
+After the first attempt had failed, I went with a bottom-up approach. I converted all the tests over to Vitest, and removed all the new TypeScript code in favor of the same old JS code. This made the entire file go red with TypeScript errors, but that was irrelevant at that time.
 
-Then i ran `vitest`. The nice thing about it is that it is in watch mode by default. Which means, everytime I change my source file, it runs all the tests again, and it takes less than 1second to run all the tests. It was literally **Test driven development**.
+Then i ran `vitest`. The nice thing about it is that it runs in watch mode by default. Which means, everytime I change my source file, it runs all the tests again, and it takes less than 1second to run all the tests. It was literally **Test driven development**.
 
 ### Targeting the dependencies
 
 The 3 dependencies responsible for the entire havoc in the first place: `gopd`, `typedarray.prototype.slice`, `which-typed-array`.
 
-I deleted em all and replaced them with their native equivalents.
+I deleted them all and replaced them with their native equivalents.
 
 - gopd -> `Object.getOwnPropertyDescriptors`
 - typedarray.prototype.slice -> `TypedArray.prototype.slice`
 - which-typed-array -> `ArrayBuffer.isView(value) && !(value instanceof DataView);`
 
-which-typed-array doesn't have a direct equivalent in new code because it was ultimately used to check if an object was a TypedArray, the type of the array wasn't used at all
+> which-typed-array doesn't have a direct equivalent in new code because it was ultimately used to check if an object was a TypedArray, the type of the array wasn't used at all
 
-After this I noticed some tests were failing, so tweaked the implementations here and there until they were fixed.
+After this I noticed some tests were failing, so I tweaked the implementations here and there until they were fixed.
 
 ### Aggressively typescript
 
