@@ -1,12 +1,10 @@
+import { dev } from '$app/environment';
 import { Database } from 'bun:sqlite';
 
-const db = new Database(
-  process.env.NODE_ENV === 'development' || import.meta.env.DEV ? 'likes.sqlite' : '/likes.sqlite',
-  {
-    create: true,
-    strict: true,
-  },
-);
+const db = new Database(dev ? 'likes.sqlite' : '/likes.sqlite', {
+  create: true,
+  strict: true,
+});
 
 db.exec('PRAGMA journal_mode = WAL;');
 
