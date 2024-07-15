@@ -1,7 +1,8 @@
 import { Likes } from '$lib/server/likes';
+import { Database } from 'bun:sqlite';
 
 async function migrate() {
-  const db = Likes.db;
+  const db = new Database('/likes.sqlite');
 
   //  Read all likes
   const likes = db.query('SELECT * FROM likes').all() as { blogID: string; likes: number }[];
