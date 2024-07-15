@@ -1,8 +1,8 @@
 import { promises as fsp } from 'fs';
 import { ASSETS_ROOT_PATH } from './constants';
 import { BlogData } from './types';
+import { Likes } from '../src/lib/server/likes';
 
-const URL = `https://puruvjdev-functions.devpuruvj.workers.dev/likes/`;
 const MAX_COUNT = 6;
 
 export async function getPopularBlogPosts({ blogData }: { blogData: BlogData[] }) {
@@ -10,9 +10,7 @@ export async function getPopularBlogPosts({ blogData }: { blogData: BlogData[] }
   const likesList: { id: string; likes: number; date: Date }[] = [];
 
   for (const { id, date } of blogData) {
-    const req = await fetch(`${URL}${id}`);
-
-    const { likes } = (await req.json()) as any;
+    const likes = Likes.get(id);
 
     likesList.push({ id, likes, date });
   }

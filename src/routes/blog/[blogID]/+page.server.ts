@@ -1,43 +1,15 @@
 import { blogMap } from '$lib/generated/blog';
+import { Likes } from '$lib/server/likes.js';
 import { fail, redirect } from '@sveltejs/kit';
-import { parse } from 'node:path';
 
 export const prerender = false;
-
-let obj: Record<string, number> = {};
-
-function getCacheFile() {
-  const root = import.meta.env.DEV
-    ? new URL(import.meta.url).pathname.split('/').slice(0, -2).join('/')
-    : parse(import.meta.url).root;
-
-  // get the file
-  return Bun.file(root + '/likes.json');
-}
-
-async function syncObj() {
-  const cache_file = getCacheFile();
-
-  if (await cache_file.exists()) {
-    obj = await cache_file.json();
-  } else {
-    await Bun.write(cache_file, JSON.stringify(obj, null, 2));
-  }
-}
 
 export const load = async ({ params: { blogID } }) => {
   const data = blogMap[blogID];
 
   if (data.redirectTo) throw redirect(302, data.redirectTo);
 
-  // get the file
-  const cache_file = getCacheFile();
-
-  await syncObj();
-
-  console.log(cache_file.name, obj);
-
-  return { blogData: data, likes: obj[blogID] ?? 0 };
+  return { blogData: data, likes: Likes.get(blogID) };
 };
 
 export const actions = {
@@ -47,22 +19,15 @@ export const actions = {
 
     const blogID = params.blogID;
 
-    await syncObj();
+    const likes = Likes.get(blogID);
 
-    const likes = obj[blogID];
-
-    if (!likes) {
+    if (likes === undefined || likes === null) {
       fail(404, { success: false, message: "blogID doesn't exists" });
     }
 
     const incrementVal = operation === 'inc' ? +1 : -1;
     const newLikes = likes + incrementVal;
-    obj[blogID] = newLikes;
-
-    // get the file
-    const cache_file = getCacheFile();
-
-    Bun.write(cache_file, JSON.stringify(obj, null, 2));
+    Likes.set(blogID, newLikes);
 
     return { likes: newLikes };
   },
