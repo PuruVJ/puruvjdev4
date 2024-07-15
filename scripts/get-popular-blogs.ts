@@ -1,7 +1,15 @@
 import { promises as fsp } from 'fs';
 import { ASSETS_ROOT_PATH } from './constants';
 import { BlogData } from './types';
-import { Likes } from '../src/lib/server/likes';
+import { Database } from 'bun:sqlite';
+
+let db: Database;
+
+try {
+  db = new Database('/likes.sqlite');
+} catch (e) {
+  db = new Database('likes.sqlite');
+}
 
 const MAX_COUNT = 6;
 
@@ -10,7 +18,9 @@ export async function getPopularBlogPosts({ blogData }: { blogData: BlogData[] }
   const likesList: { id: string; likes: number; date: Date }[] = [];
 
   for (const { id, date } of blogData) {
-    const likes = Likes.get(id);
+    const { likes = 0 } = (db.query('SELECT likes FROM likes WHERE blogID = ?').get(id) || {}) as {
+      likes: number;
+    };
 
     likesList.push({ id, likes, date });
   }
