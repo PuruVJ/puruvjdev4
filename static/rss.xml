@@ -11,6 +11,14 @@
     </image>
     
           <item>
+            <title>Life, Buckets &amp; Water: How to succeed in life // Puru Vijay</title>
+            <link>https://puruvj.dev/blog/life-buckets-water</link>
+            <description>How life is just a bunch of buckets, a tap, and how to make the best of it.</description>
+            <pubDate>Sat, 03 Aug 2024 18:30:00 GMT</pubDate>
+          </item>
+        
+
+          <item>
             <title>neotraverse: unbloating traverse // Puru Vijay</title>
             <link>https://puruvj.dev/blog/forking-and-fixing-traverse</link>
             <description>This is the entire process of why and how I forked traverse npm package into neotraverse.</description>
